@@ -4,11 +4,11 @@
 #####################
 #Edit each step with your files!
 
-Amazon_16S_esv_to_taxa_table <- read.csv("~/Google Drive/UCD/Research/2_Nfix_rate_15N2_DNA_SIP/16S/Amazon_16S_esv_to_taxa_table.csv", stringsAsFactors=FALSE, strip.white=TRUE)
+Amazon_16S_esv_to_taxa_table <- read.csv("", stringsAsFactors=FALSE, strip.white=TRUE)
 Amazon_16S_esv_to_taxa_table$Class[which(Amazon_16S_esv_to_taxa_table$Class == "Nitrospira")] <- "Nitrospiria"
 #View(Amazon_16S_esv_to_taxa_table)
 t.esv <- t(rare_out)
-write.csv(t.esv, file = "~/Google Drive/UCD/Research/2_Nfix_rate_15N2_DNA_SIP/16S/t.dada_seq.csv")
+write.csv(t.esv, file = "")
 
 ra.taxa <- matrix(rep(-999), ncol = 31, nrow=3166)
 ra.taxa <- as.data.frame(ra.taxa)
@@ -81,7 +81,7 @@ ncol(Reduced)
 #View(Reduced) #check taxa alignment
 #Should be reduced to no repeated taxa
 #New array is Reduced
-write.table(Reduced, file = "~/Google Drive/UCD/Research/2_Nfix_rate_15N2_DNA_SIP/16S//Reduced_16_esv.csv")
+write.table(Reduced, file = "")
 backup_reduced_OTUs <- Reduced
 #Now combine species with genus name and replace in existing matrix
 New_spec_name <- -999.99
@@ -160,7 +160,7 @@ for(g in seq(1:(ncol(Sp.add)-1))) {
 }
 #View(Sp.add)
 Reduced_distrib_per[,25:31] <- Sp.add 
-write.table(Reduced_distrib_per, file = "~/Google Drive/UCD/Research/2_Nfix_rate_15N2_DNA_SIP/16S/Amazon_Reduced_further_edits_16S.csv")
+write.table(Reduced_distrib_per, file = "")
 ###Check if there are names repeated across taxonomic levels. If there are, just add a '.' '.' to either side of the name
 
 #########################################################
@@ -278,7 +278,7 @@ attrib_out[,6] <- code_name
 colnames(attrib_out) <- c("Totals", "pval","code","diff","Shared name","label")
 
 nrow(attrib_out)
-write.table(attrib_out, file = "~/Google Drive/UCD/Research/2_Nfix_rate_15N2_DNA_SIP/16S/Amazon_network_attrib_out_FINAL.csv")
+write.table(attrib_out, file = "")
 
 
 ##############Make Network################################################################################################
@@ -323,5 +323,5 @@ nrow(network_3) #ignore error
 View(network_3)
 
 #manually remove lines where 'target' is blank in excel
-saveRDS(network_3, file = "~/Google Drive/LOCAL/UCD/Research/nifH_functional_seq/amplicon_process/DNA_network_Intermediates/network_frame_DNA_final.rds")
-write.table(network_3, file = "~/Google Drive/LOCAL/UCD/Research/nifH_functional_seq/amplicon_process/DNA_network_Intermediates/netwrok_out_DNA_nifH_frame.csv")
+saveRDS(network_3, file = "")
+write.table(network_3, file = "")
