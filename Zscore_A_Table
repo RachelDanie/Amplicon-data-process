@@ -1,0 +1,15 @@
+zscore <- function(dat) { #make sure factors are rows and samples are columns 
+    dat2<-dat
+    for(t in seq(1:nrow(dat))) {
+      
+      mu <- rowMeans(dat[t,])
+      sig <- sd(matrix(dat[t,]))
+      newline <- c()
+      for(b in seq(1:ncol(dat))) {
+        zval <- (dat[t,b]-mu)/sig
+        newline <- c(newline, zval)
+      }
+      dat2[t,] <- newline
+    }
+    return(dat2)
+}
