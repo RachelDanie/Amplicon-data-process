@@ -279,3 +279,49 @@ colnames(attrib_out) <- c("Totals", "pval","code","diff","Shared name","label")
 
 nrow(attrib_out)
 write.table(attrib_out, file = "~/Google Drive/UCD/Research/2_Nfix_rate_15N2_DNA_SIP/16S/Amazon_network_attrib_out_FINAL.csv")
+
+
+##############Make Network################################################################################################
+
+ITS <-  Reduced_distrib_per[,44:50]
+zer <- rep(1,(nrow(ITS)))
+net <- as.data.frame(cbind(zer,zer,zer))
+network_1 <- as.data.frame(cbind(0,0,0))
+colnames(network_1) <- c("source", "inter", "target")
+colnames(net) <- c("source", "inter", "target")
+for (i in seq(1:6)){
+  for (q in seq(1:nrow(ITS))) {
+    if (as.character(ITS[q,i]) == "") {
+      net[q,1] <- "0"
+      net[q,3] <- "0"
+      net[q,2] <- "0"
+    }
+    else {
+      net[q,1] <- as.character(ITS[q,i])
+      net[q,3] <- as.character(ITS[q,(i+1)])
+      net[q,2] <- i
+    }
+    
+  }
+  network_1 <- rbind(network_1, net)
+}
+network_1 <- network_1[-1,]
+network_2 <- network_1[!duplicated(network_1),]
+#network_2
+rownames(network_2) <- c(seq(1:nrow(network_2)))
+network_3 <- t(data.frame(rep(-999.99,3))); 
+colnames(network_3)<- colnames(network_2); 
+row.names(network_3) <- c()
+h <- nrow(network_2)
+for (v in seq(1:h)) {
+  if (network_2[v,1]!=network_2[v,3] && network_2[v,3] != "") {
+    network_3 <- rbind(network_3,network_2[v,])
+  }
+}
+network_3 <- network_3[-1,]
+nrow(network_3) #ignore error
+View(network_3)
+
+#manually remove lines where 'target' is blank in excel
+saveRDS(network_3, file = "~/Google Drive/LOCAL/UCD/Research/nifH_functional_seq/amplicon_process/DNA_network_Intermediates/network_frame_DNA_final.rds")
+write.table(network_3, file = "~/Google Drive/LOCAL/UCD/Research/nifH_functional_seq/amplicon_process/DNA_network_Intermediates/netwrok_out_DNA_nifH_frame.csv")
